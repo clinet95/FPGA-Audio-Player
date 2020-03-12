@@ -1,0 +1,6 @@
+Audio Recorder/Player
+1) Play a message
+2) Record a message
+3) Delete a message
+4) Delete all messages
+5) Volume control
