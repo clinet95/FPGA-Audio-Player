@@ -1,0 +1,7 @@
+Please select an audio file:
+1) 0006
+2) 0007
+3) 0008
+4) 0009
+5) 0010
+6) Previous menu
