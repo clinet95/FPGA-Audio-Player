@@ -48,61 +48,65 @@ void convertFile(ifstream& inputFile, ofstream& outputFile)
         std::cout << statement << endl;
         p = statement.begin();
 
-        //if(inputFile && !inputFile.eof()){
-            //Line String Breakdown
-            while(*p != '\0'){
-                if((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || (*p >= '0' && *p <= '9')){
-                    oss << LOAD + *p;
-                    oss << '\n';
-                    oss << STORE + to_string(i);
-                    oss << '\n';
-                }
-                else if(*p == ' '){
-                    oss << LOAD + "SPACE";
-                    oss << '\n';
-                    oss << STORE + to_string(i);
-                    oss << '\n';
-                }
-                else if(*p == '.'){
-                    oss << LOAD + "PERIOD";
-                    oss << '\n';
-                    oss << STORE + to_string(i);
-                    oss << '\n';
-                }
-                else if(*p == ':'){
-                    oss << LOAD + "COLON";
-                    oss << '\n';
-                    oss << STORE + to_string(i);
-                    oss << '\n';
-                }
-                else if(*p == ')'){
-                    oss << LOAD + "RPAREN";
-                    oss << '\n';
-                    oss << STORE + to_string(i);
-                    oss << '\n';
-                }
-                else if(*p == '/'){
-                    oss << LOAD + "FWDSLASH";
-                    oss << '\n';
-                    oss << STORE + to_string(i);
-                    oss << '\n';
-                }
-                else{
-                    oss << LOAD + "DEFAULT";
-                    oss << '\n';
-                    oss << STORE + to_string(i);
-                    oss << '\n';
-                }
-                p++;
-                i++;
+        //Line String Breakdown
+        while(*p != '\0'){
+            if((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || (*p >= '0' && *p <= '9')){
+                oss << LOAD + *p;
+                oss << '\n';
+                oss << STORE + to_string(i);
+                oss << '\n';
             }
-            
-            oss << LOAD + "LF";
-            oss << '\n';
-            oss << STORE + to_string(i);
-            oss << '\n'; 
-            oss << '\n';   
-        //}
+            else if(*p == ' '){
+                oss << LOAD + "SPACE";
+                oss << '\n';
+                oss << STORE + to_string(i);
+                oss << '\n';
+            }
+            else if(*p == '.'){
+                oss << LOAD + "PERIOD";
+                oss << '\n';
+                oss << STORE + to_string(i);
+                oss << '\n';
+            }
+            else if(*p == ':'){
+                oss << LOAD + "COLON";
+                oss << '\n';
+                oss << STORE + to_string(i);
+                oss << '\n';
+            }
+            else if(*p == ')'){
+                oss << LOAD + "RPAREN";
+                oss << '\n';
+                oss << STORE + to_string(i);
+                oss << '\n';
+            }
+            else if(*p == '/'){
+                oss << LOAD + "FWDSLASH";
+                oss << '\n';
+                oss << STORE + to_string(i);
+                oss << '\n';
+            }
+            else if(*p == '?'){
+                oss << LOAD + "QUESTION";
+                oss << '\n';
+                oss << STORE + to_string(i);
+                oss << '\n';
+            }
+            else{
+                oss << LOAD + "DEFAULT";
+                oss << '\n';
+                oss << STORE + to_string(i);
+                oss << '\n';
+            }
+            p++;
+            i++;
+        }
+        
+        oss << LOAD + "LF";
+        oss << '\n';
+        oss << STORE + to_string(i);
+        oss << '\n'; 
+        oss << '\n';
     }
 
     out += oss.str();
