@@ -7,6 +7,13 @@ using namespace std;
 
 const string LOAD = "Load s0, ascii_";
 const string STORE = "Store s0, ";
+const string PARAGRAPH[] = {"\txor s0, s0 ;initializes s0 to zero\nnext_letter", //here next_letter is supposed to be changed
+                            "input s3, buffer_full	;check if buffer is full\n\tcompare s3, 01\n\tjump z, buffer_full_call", //here junmp is missing stuff
+                            "fetch s1, (s0)	;fetch next instruction from scratchpad ram\n\tadd s0, 01	;increment to next address\nready_buffer", //here it is because of ready_buffer
+                            "output s1, uart_data_tx	;	output letter to uart_tx\n\tcompare s0, ", //compare to i_max_count
+                            "jump nz, next_letter", //missing the extension to label
+                            "jump PLACEHOLDER!!!\nbuffer_full_call", //last label miising stuff
+		                    "load sF, sF	;buffer full stall\n\tjump next_letter"}; // jump to label missing stuff
 
 void getFileName(string& s)
 {
@@ -22,20 +29,29 @@ void getFileName(string& s)
     return;
 }
 
-string getOutputName(string inName)
+string getOutputName(string inName, string& extension)
 {
     string out;
 
     out = inName;
     for(int i = 0; i < 4; i++)
         out.pop_back();
+
+    //This creates the "_ext_" version of the extension of the 
+    //files for use with the different paragraphs per lines
+    extension = "_";
+    for (size_t i = 10; i < out.length(); i++)
+        extension.push_back(out[i]);
+    extension.push_back('_');
+
     out += "(Converted).txt";
     
     return out;
 }
 
-void convertFile(ifstream& inputFile, ofstream& outputFile)
+void convertFile(ifstream& inputFile, ofstream& outputFile, const string& ext)
 {
+    int lineNumber = 1;
     string statement, out;
     ostringstream oss;
     string::iterator p;
@@ -107,6 +123,27 @@ void convertFile(ifstream& inputFile, ofstream& outputFile)
         oss << STORE + to_string(i);
         oss << '\n'; 
         oss << '\n';
+
+        //Managing Paragraph and Label Extensions
+        for(size_t i = 0; i < 3; i++){
+            oss << PARAGRAPH[i] + ext + to_string(lineNumber);
+            if(i % 2 == 0)
+                oss << ":";
+            oss << "\n\t";
+        }
+
+        oss << PARAGRAPH[3] + to_string(i) + "\n\t";
+
+        for (size_t i = 4; i < 7; i++){
+            oss << PARAGRAPH[i] + ext + to_string(lineNumber);
+            if(i % 2 == 1)
+                oss << ":";
+            if(i != 6)
+                oss << "\n\t";
+            else
+                oss << "\n\n";
+        }
+        lineNumber++;
     }
 
     out += oss.str();
@@ -119,11 +156,11 @@ int main()
 {
     ifstream inputFile;
     ofstream outputFile;
-    string fileName;
+    string fileName, ext;
 
     getFileName(fileName);
 
-    string fileNameOut = getOutputName(fileName);    
+    string fileNameOut = getOutputName(fileName, ext);    
 
     //Open the input file
     inputFile.open(fileName);
@@ -136,7 +173,7 @@ int main()
     //Open/Create the output file
     outputFile.open(fileNameOut);
 
-    convertFile(inputFile, outputFile);
+    convertFile(inputFile, outputFile, ext);
 
     inputFile.close();
     outputFile.close();
