@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=D:\Xilinx\Projects\Lab 5\GCDDesign\GCDtop.ncd
+OUTFILE=D:\Xilinx\Projects\Lab 5\GCDDesign\GCDtop.bit
+FAMILY=Spartan6
+PART=xc6slx45-3csg484
+WORKINGDIR=D:\Xilinx\Projects\Lab 5\GCDDesign
+LICENSE=WebPack
+USER_INFO=211873504_0_0_236

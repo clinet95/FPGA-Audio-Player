@@ -1,0 +1,8 @@
+verilog work "sub4.v"
+verilog work "NEQ.v"
+verilog work "mux2_1.v"
+verilog work "less_than.v"
+verilog work "dff.v"
+verilog work "Datapath.v"
+verilog work "Controller.v"
+verilog work "GCDtop.v"

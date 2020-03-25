@@ -1,0 +1,29 @@
+Command line:
+   GCDTop_testbench_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  61583
+
+Mon Feb 24 12:41:53 2020
+
+
+ Elaboration Time: 0.046875 sec
+
+ Current Memory Usage: 5160.65 Meg
+
+ Total Signals          : 84
+ Total Nets             : 60
+ Total Signal Drivers   : 25
+ Total Blocks           : 14
+ Total Primitive Blocks : 11
+ Total Processes        : 35
+ Total Traceable Variables  : 46
+ Total Scalar Nets and Variables : 225
+Total Line Count : 133
+
+ Total Simulation Time: 0.078125 sec
+
+ Current Memory Usage: 5003.37 Meg
+
+Mon Feb 24 12:46:56 2020
+
